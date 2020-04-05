@@ -6,9 +6,10 @@ def send():
     send_socket = context.socket(zmq.PUSH)
     send_socket.bind("tcp://0.0.0.0:5557")
 
-    for i in range(20):
+    sleep(5) #Allow sockets to connect
+    for i in range(60):
         send_socket.send_string(str(i))
         print("sending: {}".format(i))
-    sleep(1)
+        sleep(1)
 
 send()
