@@ -6,7 +6,7 @@
     - name: docker-compose up
       shell: "/snap/bin/docker-compose up -d"
       args:
-        chdir: "~/ExampleDistributedSystem/deploy/remote-deploy/job-server"
+        chdir: "{{ playbook_dir }}/job-server"
 
 - name: Setup worker
   gather_facts: true
@@ -17,6 +17,6 @@
         repo: 'git@github.com:YoshikiTakashima/ExampleDistributedSystem.git'
         dest: "{{ lookup('env', 'PWD') }}/ExampleDistributedSystem"
     - name: docker-compose up
-      shell: "NODE_NAME={{ inventory_hostname }} /usr/bin/docker-compose up -d"
+      shell: "NODE_NAME={{ inventory_hostname }} /snap/bin/docker-compose up -d"
       args:
         chdir: "{{ lookup('env', 'PWD') }}/ExampleDistributedSystem/deploy/remote-deploy/worker"

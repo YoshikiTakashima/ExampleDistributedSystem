@@ -3,7 +3,7 @@
   gather_facts: true
   hosts: kuroneko
   tasks:
-    - name: docker-compose down
+    - name:  down
       command: /snap/bin/docker-compose down
       args:
         chdir: "{{ playbook_dir }}/job-server"
@@ -19,7 +19,7 @@
   hosts: cylab
   tasks:
     - name: docker-compose down
-      command: docker-compose down 
+      command: /snap/bin/docker-compose down 
       args:
         chdir:  "{{ lookup('env', 'PWD') }}/ExampleDistributedSystem/deploy/remote-deploy/worker"
     - name: Delete images
@@ -28,3 +28,7 @@
       command: docker container prune -f
     - name: prune images
       command: docker image prune -f
+    - name: delete repo
+      shell: rm -rf ExampleDistributedSystem
+      args:
+        chdir: "{{ lookup('env', 'PWD') }}"
