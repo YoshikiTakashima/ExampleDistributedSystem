@@ -1,0 +1,27 @@
+version: '3.7'
+services:
+  job-server-recv:
+    build:
+      context: ../../../job-server/recv
+      dockerfile: Dockerfile
+    image: recv:latest
+    environment:
+    - PYTHONUNBUFFERED=1
+    ports:
+      - target: 5555
+        published: 5555
+        protocol: tcp
+        mode: host
+  job-server-send:
+    build:
+      context: ../../../job-server/send
+      dockerfile: Dockerfile
+    image: send:latest
+    environment:
+      - PYTHONUNBUFFERED=1
+    ports:
+      - target: 5557
+        published: 5557
+        protocol: tcp
+        mode: host
+

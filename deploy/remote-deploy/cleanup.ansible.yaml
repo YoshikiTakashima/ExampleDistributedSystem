@@ -1,0 +1,30 @@
+---
+- name: Clean Up Job-Server
+  gather_facts: true
+  hosts: kuroneko
+  tasks:
+    - name: docker-compose down
+      command: /snap/bin/docker-compose down
+      args:
+        chdir: "{{ playbook_dir }}/job-server"
+    - name: Delete images
+      command: docker image rm 'send:latest' 'recv:latest' 
+    - name: prune containers
+      command: docker container prune -f
+    - name: prune images
+      command: docker image prune -f
+
+- name: Clean Up worker
+  gather_facts: true
+  hosts: cylab
+  tasks:
+    - name: docker-compose down
+      command: docker-compose down 
+      args:
+        chdir:  "{{ lookup('env', 'PWD') }}/ExampleDistributedSystem/deploy/remote-deploy/worker"
+    - name: Delete images
+      command: docker image rm 'worker:latest'
+    - name: prune containers
+      command: docker container prune -f
+    - name: prune images
+      command: docker image prune -f

@@ -1,0 +1,10 @@
+version: '3.7'
+services:
+  worker:
+    build:
+      context: ../../../worker/
+      dockerfile: Dockerfile
+    image: worker:latest
+    environment:
+      - PYTHONUNBUFFERED=1
+    entrypoint: [ "python3", "./worker.py", "${NODE_NAME}" ]

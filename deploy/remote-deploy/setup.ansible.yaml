@@ -1,0 +1,22 @@
+---
+- name: Setup Job-Server
+  gather_facts: true
+  hosts: kuroneko
+  tasks:
+    - name: docker-compose up
+      shell: "/snap/bin/docker-compose up -d"
+      args:
+        chdir: "~/ExampleDistributedSystem/deploy/remote-deploy/job-server"
+
+- name: Setup worker
+  gather_facts: true
+  hosts: cylab
+  tasks:
+    - name: get work repo
+      git:
+        repo: 'git@github.com:YoshikiTakashima/ExampleDistributedSystem.git'
+        dest: "{{ lookup('env', 'PWD') }}/ExampleDistributedSystem"
+    - name: docker-compose up
+      shell: "NODE_NAME={{ inventory_hostname }} /usr/bin/docker-compose up -d"
+      args:
+        chdir: "{{ lookup('env', 'PWD') }}/ExampleDistributedSystem/deploy/remote-deploy/worker"
