@@ -1,0 +1,9 @@
+---
+- name: Setup Debug
+  gather_facts: true
+  hosts: kuroneko
+  tasks:
+    - name: docker-compose up
+      command: /snap/bin/docker-compose up -d
+      args:
+        chdir: "{{ playbook_dir }}"

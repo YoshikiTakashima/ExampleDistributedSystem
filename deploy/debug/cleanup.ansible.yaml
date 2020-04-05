@@ -1,0 +1,15 @@
+---
+- name: Clean Up Debug
+  gather_facts: true
+  hosts: kuroneko
+  tasks:
+    - name: docker-compose down
+      command: /snap/bin/docker-compose down
+      args:
+        chdir: "{{ playbook_dir }}"
+    - name: Delete images
+      command: docker image rm 'send:latest' 'recv:latest' 'worker:latest'
+    - name: prune containers
+      command: docker container prune -f
+    - name: prune images
+      command: docker image prune -f
