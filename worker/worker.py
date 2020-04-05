@@ -16,7 +16,7 @@ def work_loop(name):
         out_socket.send_string("NODE: {}, ID: {}, DATE: {}".format(name, \
                                                                    inbound, \
                                                                    str(dateTimeObj)))
-        sleep(1)
+        sleep(2)
 
 from sys import argv
 work_loop(argv[1])
