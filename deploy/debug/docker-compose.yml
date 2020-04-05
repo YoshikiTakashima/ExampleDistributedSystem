@@ -31,4 +31,4 @@ services:
     image: worker:latest
     environment:
       - PYTHONUNBUFFERED=1
-    entrypoint: [ "python3", "./worker.py", "DEBUG" ]
+    entrypoint: [ "python3", "./worker.py", "${NODE_NAME}" ]

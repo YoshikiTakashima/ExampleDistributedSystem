@@ -4,6 +4,6 @@
   hosts: kuroneko
   tasks:
     - name: docker-compose up
-      command: /snap/bin/docker-compose up -d
+      shell: "NODE_NAME={{ inventory_hostname }} /snap/bin/docker-compose up -d"
       args:
         chdir: "{{ playbook_dir }}"
